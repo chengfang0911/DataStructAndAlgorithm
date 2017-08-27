@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "targetver.h"
 
 #include <stdio.h>
 #include <tchar.h>
@@ -46,9 +45,19 @@ public:
 	}
 
 	void InitList();
+	void MakeEmpty();
+	BOOL IsEmpty();
+
 	BOOL IsFree();
 	BOOL IsLast();
-	Node<T>* FindNode(T value);
+	Node<T>* Find(T value);
+	Node<T>* FindPrevious(T value);
+	void Delete(T value);
+	void DeleteList();
+	Node<T>* Header();
+	Node<T>* First();
+	Node<T>* Advance(Node<T>* p);
+
 	Node<T>* InsertData(Node<T> *pNode,T value);
 private:
 	shared_ptr <Node<T>> m_pBegin;
