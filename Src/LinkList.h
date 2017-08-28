@@ -13,7 +13,7 @@
 
 using namespace std;
 
-template<typename T>
+template<class T>
 class Node
 {
 public:
@@ -33,7 +33,7 @@ public:
 	Node *pNext;
 };
 
-template<typename T>
+template<class T>
 class CLinkList
 {
 public:
@@ -47,8 +47,6 @@ public:
 	void InitList();
 	void MakeEmpty();
 	BOOL IsEmpty();
-
-	BOOL IsFree();
 	BOOL IsLast();
 	Node<T>* Find(T value);
 	Node<T>* FindPrevious(T value);
