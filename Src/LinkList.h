@@ -39,8 +39,7 @@ class CLinkList
 public:
 	CLinkList()
 	{
-		m_pBegin = NULL;
-		m_pEnd = NULL;
+		m_pEnd = m_pBegin = NULL;
 	}
 	
 	~CLinkList(){}
@@ -48,8 +47,7 @@ public:
 
 	void InitList()
 	{
-		m_pBegin = make_shared<Node<T>>();
-		m_pEnd = make_shared <Node<T>>();
+		m_pEnd = m_pBegin = new Node<T>();
 	}
 	void MakeEmpty(){}
 	BOOL IsEmpty()
@@ -106,9 +104,33 @@ public:
 	{
 		return NULL;
 	}
+	BOOL push_back(T value)
+	{
+		Node<T> *pNode = new Node<T>();
+		if (NULL == pNode)
+		{
+			return FALSE;
+		}
+		pNode->data = value;
+		pNode->pNext = NULL;
+
+		m_pEnd->pNext = pNode;
+		m_pEnd = pNode;
+		return TRUE;
+	}
+	void PrintList()
+	{
+		Node<T> *pTmp = m_pBegin;
+		cout << "begin print list---------------" << endl;
+		while (pTmp != NULL && (pTmp = pTmp->pNext))
+		{
+			cout << pTmp->data << endl;
+		}
+		cout << "end print list---------------" << endl;
+	}
 private:
-	shared_ptr <Node<T>> m_pBegin;
-	shared_ptr <Node<T>> m_pEnd;
+	Node<T> *m_pBegin;
+	Node<T> *m_pEnd;
 };
 
 

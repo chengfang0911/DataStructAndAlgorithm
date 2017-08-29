@@ -11,6 +11,10 @@ void Excersice_1()
 	cout << "Excersice_1  begin------------" << endl;
 	CLinkList<int> linklist;
 	linklist.InitList();
-	
+	for (int i = 0;i<10 ;i++)
+	{
+		linklist.push_back(i);
+	}
+	linklist.PrintList();
 	cout << "Excersice_1  end------------" << endl;
 }
