@@ -21,14 +21,6 @@ public:
 	{
 		pNext = NULL;
 	}
-	~Node()
-	{
-		if (pNext != NULL)
-		{
-			delete pNext;
-		}
-		
-	}
 	T data;
 	Node *pNext;
 };
@@ -42,7 +34,10 @@ public:
 		m_pEnd = m_pBegin = NULL;
 	}
 	
-	~CLinkList(){}
+	~CLinkList()
+	{
+		DeleteList();
+	}
 	
 
 	void InitList()
@@ -85,7 +80,12 @@ public:
 	{}
 	void DeleteList()
 	{
-		return NULL;
+		Node<T> *pNode = NULL;
+		while ((pNode = m_pBegin) && (pNode != NULL))
+		{
+			m_pBegin = m_pBegin->pNext;
+			delete pNode;
+		}
 	}
 	Node<T>* Header()
 	{
@@ -120,13 +120,23 @@ public:
 	}
 	void PrintList()
 	{
-		Node<T> *pTmp = m_pBegin;
 		cout << "begin print list---------------" << endl;
+		Node<T> *pTmp = m_pBegin;
 		while (pTmp != NULL && (pTmp = pTmp->pNext))
 		{
 			cout << pTmp->data << endl;
 		}
 		cout << "end print list---------------" << endl;
+	}
+	int GetSize()
+	{
+		int nSize = 0;
+		Node<T> *pTmp = m_pBegin;
+		while (pTmp != NULL && (pTmp = pTmp->pNext))
+		{
+			nSize++;
+		}
+		return nSize;
 	}
 private:
 	Node<T> *m_pBegin;

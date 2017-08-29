@@ -17,4 +17,13 @@ void Excersice_1()
 	}
 	linklist.PrintList();
 	cout << "Excersice_1  end------------" << endl;
+
+	cout << linklist.GetSize() << endl;
+	linklist.DeleteList();
+	cout << linklist.GetSize() << endl;
+}
+
+void Excersice_2()
+{
+
 }

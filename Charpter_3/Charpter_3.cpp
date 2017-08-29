@@ -8,6 +8,8 @@ int main()
 {
 
 	Excersice_1();
+
+	Excersice_2();
     return 0;
 }
 
