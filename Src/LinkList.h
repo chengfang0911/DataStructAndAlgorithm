@@ -38,25 +38,74 @@ class CLinkList
 {
 public:
 	CLinkList()
-	{}
-	~CLinkList()
 	{
+		m_pBegin = NULL;
+		m_pEnd = NULL;
+	}
+	
+	~CLinkList(){}
+	
 
+	void InitList()
+	{
+		m_pBegin = make_shared<Node<T>>();
+		m_pEnd = make_shared <Node<T>>();
+	}
+	void MakeEmpty(){}
+	BOOL IsEmpty()
+	{
+		if (NULL == m_pBegin->pNext)
+		{
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+	BOOL IsLast()
+	{
+		if (NULL == m_pEnd->pNext)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+	Node<T>* Find(T value)
+	{
+		Node *ptmpNode = m_pBegin;
+		while (ptmpNode != NULL && pNode->data == value)
+		{
+			ptmpNode = ptmpNode->pNext;
+			return ptmpNode;
+		}
+		return NULL;
+	}
+	Node<T>* FindPrevious(T value)
+	{
+		return NULL;
+	}
+	void Delete(T value)
+	{}
+	void DeleteList()
+	{
+		return NULL;
+	}
+	Node<T>* Header()
+	{
+		return NULL;
+	}
+	Node<T>* First()
+	{
+		return NULL;
+	}
+	Node<T>* Advance(Node<T>* p)
+	{
+		return NULL;
 	}
 
-	void InitList();
-	void MakeEmpty();
-	BOOL IsEmpty();
-	BOOL IsLast();
-	Node<T>* Find(T value);
-	Node<T>* FindPrevious(T value);
-	void Delete(T value);
-	void DeleteList();
-	Node<T>* Header();
-	Node<T>* First();
-	Node<T>* Advance(Node<T>* p);
-
-	Node<T>* InsertData(Node<T> *pNode,T value);
+	Node<T>* InsertData(Node<T> *pNode, T value)
+	{
+		return NULL;
+	}
 private:
 	shared_ptr <Node<T>> m_pBegin;
 	shared_ptr <Node<T>> m_pEnd;

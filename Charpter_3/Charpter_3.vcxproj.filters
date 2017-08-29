@@ -27,6 +27,9 @@
     <ClInclude Include="..\Src\LinkList.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Excersice.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +39,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\LinkList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Excersice.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
