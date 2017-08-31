@@ -71,6 +71,18 @@ void Excersice_3()
 	Node<int>* p2 = linklist.GetNode(4);
 	linklist.SwapNeighbour(p1, p2);
 	linklist.PrintList();
+	cout << endl;
+	CTwoWayLinkList <int> twowaylinklist;
+	twowaylinklist.InitList();
+	for (int i = 0; i < 10; i++)
+	{
+		twowaylinklist.push_back(i);
+	}
+	twowaylinklist.PrintList();
 
-	cout << "Excersice_3  begin------------" << endl;
+	Node<int>* p1 = twowaylinklist.GetNode(3);
+	Node<int>* p2 = twowaylinklist.GetNode(4);
+	twowaylinklist.SwapNeighbour(p1, p2);
+	twowaylinklist.PrintList();
+	cout << "Excersice_3  end------------" << endl;
 }

@@ -149,6 +149,8 @@ public:
 		}
 		pNode->data = value;
 		pNode->pNext = NULL;
+		pNode->pBefore = m_pEnd;
+
 
 		m_pEnd->pNext = pNode;
 		m_pEnd = pNode;
@@ -158,14 +160,14 @@ public:
 	}
 	void PrintList()
 	{
-		cout << "begin print list---------------" << endl;
+		cout << "begin print twowaylist---------------" << endl;
 		Node<T> *pTmp = m_pBegin->pNext;
 		while (pTmp != NULL)
 		{
 			cout <<" "<< pTmp->data;
 			pTmp = pTmp->pNext;
 		}
-		cout <<endl<< "end print list---------------" << endl;
+		cout <<endl<< "end print twowaylist---------------" << endl;
 	}
 	void PrintList(int nindex)
 	{
