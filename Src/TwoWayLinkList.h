@@ -20,9 +20,11 @@ public:
 	Node()
 	{
 		pNext = NULL;
+		pBefore = NULL;
 	}
 	T data;
 	Node *pNext;
+	Node *pBefore;
 };
 
 template<class T>

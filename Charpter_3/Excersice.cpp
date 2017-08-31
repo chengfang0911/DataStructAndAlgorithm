@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Excersice.h"
 #include "../Src/LinkList.h"
+#include "../Src/TwoWayLinkList.h"
 #include <iostream>
 
 using namespace std;
