@@ -32,6 +32,7 @@ public:
 	CLinkList()
 	{
 		m_pEnd = m_pBegin = NULL;
+		m_nSize = 0;
 	}
 	
 	~CLinkList()
@@ -62,38 +63,66 @@ public:
 		}
 		return FALSE;
 	}
-	Node<T>* Find(T value)
+	Node<T>* GetNode(T value)
 	{
-		Node *ptmpNode = m_pBegin;
-		while (ptmpNode != NULL && pNode->data == value)
+		Node<T> *ptmpNode = m_pBegin;
+		while ((ptmpNode != NULL) && (ptmpNode->data != value))
 		{
 			ptmpNode = ptmpNode->pNext;
-			return ptmpNode;
 		}
-		return NULL;
+		return ptmpNode;
 	}
+
+	T GetNodeValue(int nIndex)
+	{
+		int n = 0;
+		Node<T> *ptmpNode = m_pBegin->pNext;
+		while (ptmpNode != NULL)
+		{
+			if (n++ == nIndex)
+			{
+				return ptmpNode->data;
+			}
+			ptmpNode = ptmpNode->pNext;
+		}
+		return m_pBegin->data;
+	}
+
 	Node<T>* FindPrevious(T value)
 	{
 		return NULL;
+	}
+	Node<T>* FindPrevious(Node<T>* pNode)
+	{
+		Node<T>* pTmp = m_pBegin;
+		while ((pTmp->pNext != NULL) && (pTmp->pNext != pNode))
+		{
+			pTmp = pTmp->pNext;
+		}
+		return pTmp;
 	}
 	void Delete(T value)
 	{}
 	void DeleteList()
 	{
 		Node<T> *pNode = NULL;
-		while ((pNode = m_pBegin) && (pNode != NULL))
+		Node<T> *pTmp = NULL;
+		pNode = m_pBegin->pNext;
+		m_pBegin->pNext = NULL;
+		while (pNode != NULL)
 		{
-			m_pBegin = m_pBegin->pNext;
+			pTmp = pNode->pNext;
 			delete pNode;
+			pNode = pTmp;
 		}
 	}
 	Node<T>* Header()
 	{
-		return NULL;
+		return m_pBegin;
 	}
 	Node<T>* First()
 	{
-		return NULL;
+		return m_pBegin->pNext;
 	}
 	Node<T>* Advance(Node<T>* p)
 	{
@@ -102,6 +131,11 @@ public:
 
 	Node<T>* InsertData(Node<T> *pNode, T value)
 	{
+		Node<T> *pTmp = m_pBegin;
+		while ((pTmp = pTmp->pNext) && pTmp == pNode)
+		{
+
+		}
 		return NULL;
 	}
 	BOOL push_back(T value)
@@ -116,31 +150,54 @@ public:
 
 		m_pEnd->pNext = pNode;
 		m_pEnd = pNode;
+
+		m_nSize++;
 		return TRUE;
 	}
 	void PrintList()
 	{
 		cout << "begin print list---------------" << endl;
+		Node<T> *pTmp = m_pBegin->pNext;
+		while (pTmp != NULL)
+		{
+			cout <<" "<< pTmp->data;
+			pTmp = pTmp->pNext;
+		}
+		cout <<endl<< "end print list---------------" << endl;
+	}
+	void PrintList(int nindex)
+	{
+		int n = 1;
 		Node<T> *pTmp = m_pBegin;
 		while (pTmp != NULL && (pTmp = pTmp->pNext))
 		{
-			cout << pTmp->data << endl;
+			if (n++ == nindex)
+			{
+				cout << nindex <<" index value is : "<< pTmp->data << endl;
+			}
 		}
-		cout << "end print list---------------" << endl;
 	}
 	int GetSize()
 	{
-		int nSize = 0;
-		Node<T> *pTmp = m_pBegin;
-		while (pTmp != NULL && (pTmp = pTmp->pNext))
-		{
-			nSize++;
-		}
-		return nSize;
+		return m_nSize;
 	}
+	void SwapNeighbour(Node<T>* pBefore,Node<T>* pBack)
+	{
+		Node<T>* pTmp = pBack->pNext;
+		Node<T>* pPrevious = FindPrevious(pBefore);
+		//pBefore->pNext = pBack->pNext;
+		//pBack->pNext = pBefore;
+		//pPrevious->pNext = pBack;
+
+		pPrevious->pNext = pBack;
+		pBack->pNext = pBefore;
+		pBefore->pNext = pTmp;
+	}
+
 private:
 	Node<T> *m_pBegin;
 	Node<T> *m_pEnd;
+	int m_nSize;
 };
 
 

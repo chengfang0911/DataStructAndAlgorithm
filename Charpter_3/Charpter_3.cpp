@@ -10,6 +10,8 @@ int main()
 	Excersice_1();
 
 	Excersice_2();
+
+	Excersice_3();
     return 0;
 }
 
