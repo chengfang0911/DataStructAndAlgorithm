@@ -14,17 +14,17 @@
 using namespace std;
 
 template<class T>
-class Node
+class TwoWayNode
 {
 public:
-	Node()
+	TwoWayNode()
 	{
 		pNext = NULL;
 		pBefore = NULL;
 	}
 	T data;
-	Node *pNext;
-	Node *pBefore;
+	TwoWayNode *pNext;
+	TwoWayNode *pBefore;
 };
 
 template<class T>
@@ -45,7 +45,7 @@ public:
 
 	void InitList()
 	{
-		m_pEnd = m_pBegin = new Node<T>();
+		m_pEnd = m_pBegin = new TwoWayNode<T>();
 	}
 	void MakeEmpty(){}
 	BOOL IsEmpty()
@@ -65,76 +65,77 @@ public:
 		}
 		return FALSE;
 	}
-	Node<T>* GetNode(T value)
+	TwoWayNode<T>* GetNode(T value)
 	{
-		Node<T> *ptmpNode = m_pBegin;
-		while ((ptmpNode != NULL) && (ptmpNode->data != value))
+		TwoWayNode<T> *ptmpTwoWayNode = m_pBegin;
+		while ((ptmpTwoWayNode != NULL) && (ptmpTwoWayNode->data != value))
 		{
-			ptmpNode = ptmpNode->pNext;
+			ptmpTwoWayNode = ptmpTwoWayNode->pNext;
 		}
-		return ptmpNode;
+		return ptmpTwoWayNode;
 	}
 
 	T GetNodeValue(int nIndex)
 	{
 		int n = 0;
-		Node<T> *ptmpNode = m_pBegin->pNext;
-		while (ptmpNode != NULL)
+		TwoWayNode<T> *ptmpTwoWayNode = m_pBegin->pNext;
+		while (ptmpTwoWayNode != NULL)
 		{
 			if (n++ == nIndex)
 			{
-				return ptmpNode->data;
+				return ptmpTwoWayNode->data;
 			}
-			ptmpNode = ptmpNode->pNext;
+			ptmpTwoWayNode = ptmpTwoWayNode->pNext;
 		}
 		return m_pBegin->data;
 	}
 
-	Node<T>* FindPrevious(T value)
+	TwoWayNode<T>* FindPrevious(T value)
 	{
-		return NULL;
-	}
-	Node<T>* FindPrevious(Node<T>* pNode)
-	{
-		Node<T>* pTmp = m_pBegin;
-		while ((pTmp->pNext != NULL) && (pTmp->pNext != pNode))
+		/*TwoWayNode<T>* pTmp = m_pBegin;
+		while ((pTmp->pNext != NULL) && (pTmp->pNext != pTwoWayNode))
 		{
 			pTmp = pTmp->pNext;
 		}
-		return pTmp;
+		return pTwoWayNode->pBefore;*/
+		return NULL;
+	}
+	TwoWayNode<T>* FindPrevious(TwoWayNode<T>* pTwoWayNode)
+	{
+		return pTwoWayNode->pBefore;
 	}
 	void Delete(T value)
 	{}
 	void DeleteList()
 	{
-		Node<T> *pNode = NULL;
-		Node<T> *pTmp = NULL;
-		pNode = m_pBegin->pNext;
+		TwoWayNode<T> *pTwoWayNode = NULL;
+		TwoWayNode<T> *pTmp = NULL;
+		pTwoWayNode = m_pBegin->pNext;
 		m_pBegin->pNext = NULL;
-		while (pNode != NULL)
+		while (pTwoWayNode != NULL)
 		{
-			pTmp = pNode->pNext;
-			delete pNode;
-			pNode = pTmp;
+			pTmp = pTwoWayNode->pNext;
+			delete pTwoWayNode;
+			pTwoWayNode = pTmp;
 		}
 	}
-	Node<T>* Header()
+	TwoWayNode<T>* Header()
 	{
 		return m_pBegin;
 	}
-	Node<T>* First()
+	TwoWayNode<T>* First()
 	{
 		return m_pBegin->pNext;
 	}
-	Node<T>* Advance(Node<T>* p)
+	TwoWayNode<T>* Advance(TwoWayNode<T>* p)
 	{
 		return NULL;
 	}
 
-	Node<T>* InsertData(Node<T> *pNode, T value)
+	TwoWayNode<T>* InsertData(TwoWayNode<T> *pTwoWayNode, T value)
 	{
-		Node<T> *pTmp = m_pBegin;
-		while ((pTmp = pTmp->pNext) && pTmp == pNode)
+		TwoWayNode<T> *pTmp = m_pBegin;
+		while ((pTmp = pTmp->pNext) && pTmp == pTwoWayNode)
 		{
 
 		}
@@ -142,18 +143,18 @@ public:
 	}
 	BOOL push_back(T value)
 	{
-		Node<T> *pNode = new Node<T>();
-		if (NULL == pNode)
+		TwoWayNode<T> *pTwoWayNode = new TwoWayNode<T>();
+		if (NULL == pTwoWayNode)
 		{
 			return FALSE;
 		}
-		pNode->data = value;
-		pNode->pNext = NULL;
-		pNode->pBefore = m_pEnd;
+		pTwoWayNode->data = value;
+		pTwoWayNode->pNext = NULL;
+		pTwoWayNode->pBefore = m_pEnd;
 
 
-		m_pEnd->pNext = pNode;
-		m_pEnd = pNode;
+		m_pEnd->pNext = pTwoWayNode;
+		m_pEnd = pTwoWayNode;
 
 		m_nSize++;
 		return TRUE;
@@ -161,7 +162,7 @@ public:
 	void PrintList()
 	{
 		cout << "begin print twowaylist---------------" << endl;
-		Node<T> *pTmp = m_pBegin->pNext;
+		TwoWayNode<T> *pTmp = m_pBegin->pNext;
 		while (pTmp != NULL)
 		{
 			cout <<" "<< pTmp->data;
@@ -172,7 +173,7 @@ public:
 	void PrintList(int nindex)
 	{
 		int n = 1;
-		Node<T> *pTmp = m_pBegin;
+		TwoWayNode<T> *pTmp = m_pBegin;
 		while (pTmp != NULL && (pTmp = pTmp->pNext))
 		{
 			if (n++ == nindex)
@@ -181,26 +182,38 @@ public:
 			}
 		}
 	}
+	void ReversePrintList()
+	{
+		TwoWayNode<T> *pTmp = m_pEnd;
+		cout << "begin print twowaylist---------------" << endl;
+		while (pTmp != NULL)
+		{
+			cout << " " << pTmp->data;
+			pTmp = pTmp->pBefore;
+		}
+		cout << endl << "end print twowaylist---------------" << endl;
+	}
 	int GetSize()
 	{
 		return m_nSize;
 	}
-	void SwapNeighbour(Node<T>* pBefore,Node<T>* pBack)
+	void SwapNeighbour(TwoWayNode<T>* pBefore,TwoWayNode<T>* pBack)
 	{
-		Node<T>* pTmp = pBack->pNext;
-		Node<T>* pPrevious = FindPrevious(pBefore);
-		//pBefore->pNext = pBack->pNext;
-		//pBack->pNext = pBefore;
-		//pPrevious->pNext = pBack;
+		TwoWayNode<T>* pTmp = pBack->pNext;
+		TwoWayNode<T>* pPrevious = FindPrevious(pBefore);
 
 		pPrevious->pNext = pBack;
 		pBack->pNext = pBefore;
 		pBefore->pNext = pTmp;
+
+		pBack->pBefore = pPrevious;
+		pBefore->pBefore = pBack;
+		pTmp->pBefore = pBefore;
 	}
 
 private:
-	Node<T> *m_pBegin;
-	Node<T> *m_pEnd;
+	TwoWayNode<T> *m_pBegin;
+	TwoWayNode<T> *m_pEnd;
 	int m_nSize;
 };
 

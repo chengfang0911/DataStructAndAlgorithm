@@ -79,10 +79,16 @@ void Excersice_3()
 		twowaylinklist.push_back(i);
 	}
 	twowaylinklist.PrintList();
-
-	Node<int>* p1 = twowaylinklist.GetNode(3);
-	Node<int>* p2 = twowaylinklist.GetNode(4);
-	twowaylinklist.SwapNeighbour(p1, p2);
+	twowaylinklist.ReversePrintList();
+	TwoWayNode<int>* twp1 = twowaylinklist.GetNode(3);
+	TwoWayNode<int>* twp2 = twowaylinklist.GetNode(4);
+	twowaylinklist.SwapNeighbour(twp1, twp2);
 	twowaylinklist.PrintList();
+	twowaylinklist.ReversePrintList();
+	twp1 = twowaylinklist.GetNode(3);
+	twp2 = twowaylinklist.GetNode(4);
+	cout << twp1->data << endl;
+	cout << twp1->pBefore->data << endl;
+	cout << twp2->pBefore->data << endl;
 	cout << "Excersice_3  end------------" << endl;
 }
