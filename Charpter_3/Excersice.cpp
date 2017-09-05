@@ -92,3 +92,66 @@ void Excersice_3()
 	cout << twp2->pBefore->data << endl;
 	cout << "Excersice_3  end------------" << endl;
 }
+
+void LinkAndLink(CLinkList<int>* linklist1, CLinkList<int>* linklist2)
+{
+	Node<int>* pTmpNode = linklist1->First();
+	if (pTmpNode == NULL)
+	{
+		return;
+	}
+	cout << "print link1 ¡É link2 :";
+	while (pTmpNode != NULL)
+	{
+		int nData = pTmpNode->data;
+		if (linklist2->GetNode(nData))
+		{
+			cout << nData << "  ";
+		}
+		pTmpNode = pTmpNode->pNext;
+	}
+	cout << endl;
+
+}
+void LinkOrLink(CLinkList<int>* linklist1, CLinkList<int>* linklist2)
+{
+	cout << "print link1 ¡È link2 : ";
+	linklist2->PrintList();
+
+	Node<int>* pTmpNode = linklist1->First();
+	if (pTmpNode == NULL)
+	{
+		return;
+	}
+	while (pTmpNode != NULL)
+	{
+		int nData = pTmpNode->data;
+		if (!linklist2->GetNode(nData))
+		{
+			cout<< "  " << nData ;
+		}
+		pTmpNode = pTmpNode->pNext;
+	}
+	cout << endl;
+}
+
+void Excersice_4()
+{
+	cout << "Excersice_4  begin------------" << endl;
+	CLinkList<int> linklist1;
+	linklist1.InitList();
+	for (int i = 0; i < 10; i++)
+	{
+		linklist1.push_back(i);
+	}
+
+	CLinkList<int> linklist2;
+	linklist2.InitList();
+	for (int i = 5; i < 15; i++)
+	{
+		linklist2.push_back(i);
+	}
+	LinkAndLink(&linklist1,&linklist2);
+	LinkOrLink(&linklist1, &linklist2);
+	cout <<endl<< "Excersice_4  end------------" << endl;
+}

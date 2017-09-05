@@ -65,7 +65,7 @@ public:
 	}
 	Node<T>* GetNode(T value)
 	{
-		Node<T> *ptmpNode = m_pBegin;
+		Node<T> *ptmpNode = m_pBegin->pNext;
 		while ((ptmpNode != NULL) && (ptmpNode->data != value))
 		{
 			ptmpNode = ptmpNode->pNext;
@@ -122,7 +122,10 @@ public:
 	}
 	Node<T>* First()
 	{
-		return m_pBegin->pNext;
+		if (m_pBegin != NULL)
+			return m_pBegin->pNext;
+		else
+			return NULL;
 	}
 	Node<T>* Advance(Node<T>* p)
 	{
@@ -156,14 +159,14 @@ public:
 	}
 	void PrintList()
 	{
-		cout << "begin print list---------------" << endl;
+
 		Node<T> *pTmp = m_pBegin->pNext;
 		while (pTmp != NULL)
 		{
 			cout <<" "<< pTmp->data;
 			pTmp = pTmp->pNext;
 		}
-		cout <<endl<< "end print list---------------" << endl;
+
 	}
 	void PrintList(int nindex)
 	{

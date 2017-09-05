@@ -7,11 +7,14 @@
 int main()
 {
 
-	Excersice_1();
+	//Excersice_1();
 
-	Excersice_2();
+	//Excersice_2();
 
-	Excersice_3();
+	//Excersice_3();
+
+	Excersice_4();
+
     return 0;
 }
 
