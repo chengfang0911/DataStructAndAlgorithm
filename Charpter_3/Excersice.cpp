@@ -2,6 +2,7 @@
 #include "Excersice.h"
 #include "../Src/LinkList.h"
 #include "../Src/TwoWayLinkList.h"
+#include "../Src/Stack.h"
 #include <iostream>
 
 using namespace std;
@@ -154,4 +155,11 @@ void Excersice_4()
 	LinkAndLink(&linklist1,&linklist2);
 	LinkOrLink(&linklist1, &linklist2);
 	cout <<endl<< "Excersice_4  end------------" << endl;
+}
+void Excersice_18()
+{
+	CStack<string> stack;
+	stack.InitStack(LIST);
+	stack.IsEmpty();
+ 
 }

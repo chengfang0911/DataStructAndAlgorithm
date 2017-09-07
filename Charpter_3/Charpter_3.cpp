@@ -13,8 +13,9 @@ int main()
 
 	//Excersice_3();
 
-	Excersice_4();
+	//Excersice_4();
 
+	Excersice_18();
     return 0;
 }
 
