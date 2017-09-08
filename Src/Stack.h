@@ -27,32 +27,55 @@ public:
 	StackNode *pNext;
 };
 
+
 template<class T>
 class CStack
 {
 public:
-	CStack()
+
+	virtual ~CStack() {}
+
+	virtual void InitStack() = 0;
+
+	virtual BOOL IsEmpty() = 0;
+
+	virtual void DisposStack() = 0;
+
+	virtual void MakeEmpty() = 0;
+
+	virtual void Push(T data) = 0;
+
+	virtual T Top() = 0;
+
+	virtual T Pop() = 0;
+
+};
+
+
+template<class T>
+class CLinkStack : public CStack<T>
+{
+public:
+	CLinkStack()
 	{
 		m_pHead = NULL;
 	}
-	~CStack() {}
+	virtual ~CLinkStack() {}
 
-	void InitStack(StackType ntype)
-	{
-		if (LIST == ntype)
-		{
-			m_pHead = new StackNode<T>;
-		}
+	
+	virtual void InitStack()
+	{	
+		m_pHead = new StackNode<T>;
 	}
 
-	BOOL IsEmpty()
+	virtual BOOL IsEmpty()
 	{
 		return m_pHead->pNext == NULL;
 	}
 
-	void DisposStack(){}
+	virtual void DisposStack() {}
 
-	void MakeEmpty()
+	virtual void MakeEmpty()
 	{
 		while (!IsEmpty())
 		{
@@ -60,16 +83,16 @@ public:
 		}
 	}
 
-	void Push(T data)
+	virtual void Push(T data)
 	{
 		StackNode<T> *tmpData = new StackNode<T>();
 		tmpData->data = data;
 
 		tmpData->pNext = m_pHead->pNext;
-		m_pHead = tmpData;
+		m_pHead->pNext = tmpData;
 	}
 
-	T Top()
+	virtual T Top()
 	{
 		StackNode<T>* pfirst = m_pHead->pNext;
 		if (pfirst != NULL)
@@ -78,7 +101,7 @@ public:
 		}
 	}
 
-	T Pop()
+	virtual T Pop()
 	{
 		StackNode<T>* pfirst = m_pHead->pNext;
 		T tmpData;
@@ -94,6 +117,58 @@ public:
 	}
 private:
 	StackNode<T> *m_pHead;
+};
+
+
+template<class T>
+class CArrayStack : public CStack<T>
+{
+public:
+	CArrayStack()
+	{
+		m_pData = NULL;
+	}
+	~CArrayStack() {}
+
+
+	virtual void InitStack()
+	{
+		m_pData = new T[48];
+	}
+
+	virtual BOOL IsEmpty()
+	{
+		return m_pHead->pNext == NULL;
+	}
+
+	virtual void DisposStack() {}
+
+	virtual void MakeEmpty()
+	{
+		if (m_pData)
+		{
+			delete[]m_pData;
+		}
+	}
+
+	virtual void Push(T data)
+	{
+
+	}
+
+	virtual T Top()
+	{
+
+	}
+
+	virtual T Pop()
+	{
+
+	}
+private:
+	T* m_pData;
+
+	StackType m_type;
 };
 
 

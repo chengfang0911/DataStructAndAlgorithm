@@ -158,8 +158,16 @@ void Excersice_4()
 }
 void Excersice_18()
 {
-	CStack<string> stack;
-	stack.InitStack(LIST);
+	CLinkStack<int> stack;
+	stack.InitStack();
 	stack.IsEmpty();
- 
+	for (int i = 0; i < 10; i++)
+	{
+		stack.Push(i);
+	}
+	for (int i = 0;i<10;i++)	 
+	{
+		cout << stack.Pop() << endl;
+	}
+
 }
