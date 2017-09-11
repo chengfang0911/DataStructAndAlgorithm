@@ -14,6 +14,7 @@
 using namespace std;
 
 enum StackType{LIST,ARRAY};
+constexpr int STACKSIZE = 48;
 
 template<class T>
 class StackNode
@@ -127,18 +128,21 @@ public:
 	CArrayStack()
 	{
 		m_pData = NULL;
+		m_nIndex = 0;
 	}
 	~CArrayStack() {}
 
 
 	virtual void InitStack()
 	{
-		m_pData = new T[48];
+		m_pData = new T[STACKSIZE];
+		memset(m_pData, -1, sizeof(T) * STACKSIZE);
+		m_nIndex = 0;
 	}
 
 	virtual BOOL IsEmpty()
 	{
-		return m_pHead->pNext == NULL;
+		return m_nIndex == 0;
 	}
 
 	virtual void DisposStack() {}
@@ -148,27 +152,34 @@ public:
 		if (m_pData)
 		{
 			delete[]m_pData;
+			m_nIndex = 0;
 		}
 	}
 
 	virtual void Push(T data)
 	{
-
+		m_pData[m_nIndex++] = data;
 	}
 
 	virtual T Top()
 	{
-
+		if (!IsEmpty())
+		{
+			return m_pData[m_nIndex - 1];
+		}
 	}
 
 	virtual T Pop()
 	{
-
+		if (!IsEmpty())
+		{
+			return m_pData[--m_nIndex];
+		}
 	}
 private:
 	T* m_pData;
-
 	StackType m_type;
+	int m_nIndex;
 };
 
 
