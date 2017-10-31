@@ -92,3 +92,22 @@ void Excersice_3()
 	cout << twp2->pBefore->data << endl;
 	cout << "Excersice_3  end------------" << endl;
 }
+
+void Excersice_4()
+{
+	CLinkList<int> linklist1;
+	CLinkList<int> Linklist2;
+	linklist1.InitList();
+	Linklist2.InitList();
+	for (int i = 0; i < 15; i++)
+	{
+		linklist1.push_back(i);
+	}
+
+	for (int i = 10; i < 30; i++)
+	{
+		Linklist2.push_back(i);
+	}
+
+
+}
