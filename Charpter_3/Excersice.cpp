@@ -2,6 +2,7 @@
 #include "Excersice.h"
 #include "../Src/LinkList.h"
 #include "../Src/TwoWayLinkList.h"
+#include "../Src/Stack.h"
 #include <iostream>
 
 using namespace std;
@@ -93,21 +94,91 @@ void Excersice_3()
 	cout << "Excersice_3  end------------" << endl;
 }
 
+void LinkAndLink(CLinkList<int>* linklist1, CLinkList<int>* linklist2)
+{
+	Node<int>* pTmpNode = linklist1->First();
+	if (pTmpNode == NULL)
+	{
+		return;
+	}
+	cout << "print link1 ¡É link2 :";
+	while (pTmpNode != NULL)
+	{
+		int nData = pTmpNode->data;
+		if (linklist2->GetNode(nData))
+		{
+			cout << nData << "  ";
+		}
+		pTmpNode = pTmpNode->pNext;
+	}
+	cout << endl;
+
+}
+void LinkOrLink(CLinkList<int>* linklist1, CLinkList<int>* linklist2)
+{
+	cout << "print link1 ¡È link2 : ";
+	linklist2->PrintList();
+
+	Node<int>* pTmpNode = linklist1->First();
+	if (pTmpNode == NULL)
+	{
+		return;
+	}
+	while (pTmpNode != NULL)
+	{
+		int nData = pTmpNode->data;
+		if (!linklist2->GetNode(nData))
+		{
+			cout<< "  " << nData ;
+		}
+		pTmpNode = pTmpNode->pNext;
+	}
+	cout << endl;
+}
+
 void Excersice_4()
 {
+	cout << "Excersice_4  begin------------" << endl;
 	CLinkList<int> linklist1;
-	CLinkList<int> Linklist2;
 	linklist1.InitList();
-	Linklist2.InitList();
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		linklist1.push_back(i);
 	}
 
-	for (int i = 10; i < 30; i++)
+	CLinkList<int> linklist2;
+	linklist2.InitList();
+	for (int i = 5; i < 15; i++)
 	{
-		Linklist2.push_back(i);
+		linklist2.push_back(i);
 	}
+	LinkAndLink(&linklist1,&linklist2);
+	LinkOrLink(&linklist1, &linklist2);
+	cout <<endl<< "Excersice_4  end------------" << endl;
+}
+void Excersice_18()
+{
+	/*CLinkStack<int> stack;
+	stack.InitStack();
+	stack.IsEmpty();
+	for (int i = 0; i < 10; i++)
+	{
+		stack.Push(i);
+	}
+	for (int i = 0;i<10;i++)
+	{
+		cout << stack.Pop() << endl;
+	}*/
 
-
+	CArrayStack<int> ArrayStack;
+	ArrayStack.InitStack();
+	ArrayStack.IsEmpty();
+	for (int i = 0; i < 10; i++)
+	{
+		ArrayStack.Push(i);
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		cout << ArrayStack.Pop() << endl;
+	}
 }
