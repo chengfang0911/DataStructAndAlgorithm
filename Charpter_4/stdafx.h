@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include "../Src/Tree.h"
+#include "../Src/Heap.h"
 
 using namespace std;
 
