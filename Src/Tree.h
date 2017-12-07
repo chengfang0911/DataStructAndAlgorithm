@@ -10,6 +10,8 @@
 #include <tchar.h>
 #include <wtypes.h>
 #include <memory>
+#include <deque>
+#include <stack>
 
 using namespace std;
 
@@ -43,7 +45,10 @@ public:
 	{
 		m_pRoot = NULL;
 	}
-	~CTree() {}
+	~CTree() 
+	{
+		MakeEmtpy();
+	}
 	void MakeEmtpy()
 	{
 		MakeEmtpy(m_pRoot);
@@ -79,12 +84,53 @@ public:
 		{
 			return m_pRoot;
 		}
-		return FindMin(m_pRoot->pRight);
+		return FindMax(m_pRoot->pRight);
 	}
 
 	void Delete(T data) {}
 	T Retrieve(TreeNode<T> *pPos) {}
 
+	void Depth()
+	{
+		std::stack<TreeNode<T> *> depthStack;
+		depthStack.push(m_pRoot);
+		while (!depthStack.empty())
+		{
+			TreeNode<T> *tempNode = depthStack.top();
+			depthStack.pop();
+			cout << tempNode->data << endl;
+			if (tempNode->pRight)
+			{
+				depthStack.push(tempNode->pRight);
+			}
+			if (tempNode->pLeft)
+			{
+				depthStack.push(tempNode->pLeft);
+			}
+			
+		}
+	}
+	void Width()
+	{
+		std::deque<TreeNode<T> *> depthdeque;
+
+		depthdeque.push_back(m_pRoot);
+		while (!depthdeque.empty())//not empty
+		{
+			TreeNode<T> *tempNode = depthdeque.front();
+			depthdeque.pop_front();
+			cout << tempNode->data << endl;
+
+			if (tempNode->pLeft)
+			{
+				depthdeque.push_back(tempNode->pLeft);
+			}
+			if (tempNode->pRight)
+			{
+				depthdeque.push_back(tempNode->pRight);
+			}
+		}
+	}
 private:
 	TreeNode<T> *m_pRoot;
 
@@ -101,7 +147,7 @@ private:
 		else
 			return Find(data, pNode->pRight);
 	}
-	TreeNode<T> *InsertTreeData(T data, TreeNode<T> *pNode)
+	TreeNode<T> *InsertTreeData(T data, TreeNode<T> *&pNode)
 	{
 		if (pNode == NULL)
 		{
@@ -150,7 +196,7 @@ private:
 		}
 		else
 		{
-			return FindMin(pNode->pRight);
+			return FindMax(pNode->pRight);
 		}
 	}
 };
