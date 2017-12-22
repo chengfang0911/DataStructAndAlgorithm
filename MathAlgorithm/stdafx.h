@@ -15,6 +15,10 @@ using namespace std;
 unsigned int Gcd(unsigned int M, unsigned N);
 
 void InsertSort();
+void ShellSort();
+void HeapSort();
+void MergeSort();
+
 
 class MyString
 {

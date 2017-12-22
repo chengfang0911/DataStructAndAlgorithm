@@ -10,12 +10,15 @@
 #include <stdlib.h>  
 #include <stdio.h>  
 #include <errno.h>  
-using namespace std;
+#include <time.h>
 
+using namespace std;
+#define LEFTCHILD(i) ((i) * 2) + 1 
 // TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
 int *g_Arr;
-constexpr int g_Size = 10;
+int *g_tempArr;
+int g_Size;
 
 unsigned int Gcd(unsigned int num1, unsigned num2)
 {
@@ -29,14 +32,15 @@ unsigned int Gcd(unsigned int num1, unsigned num2)
 	return num1;
 }
 
-void InitData()
+void InitData(int nsize = 10)
 {
-	g_Arr = new int[10];
-	unique_ptr<int> uqptrArr;
-	unique_ptr<int> uqptrArr1(g_Arr);
-	uqptrArr = move(uqptrArr1);
-	//uqptrArr.reset(g_Arr);
-	for (int i = 0; i < 10; i++)
+	g_Size = nsize;
+	g_Arr = new int[nsize];
+	g_tempArr = new int[nsize];
+#ifndef _DEBUG 
+	srand(time(NULL));
+#endif
+	for (int i = 0; i < g_Size; i++)
 	{
 		g_Arr[i] = rand() % 100;
 	}
@@ -44,32 +48,166 @@ void InitData()
 
 void printdata()
 {
-	cout << "---------" << endl;
-	for (int i=0;i<g_Size;i++)
+	cout << endl<< "---------" << endl;
+	for (int i = 0;i < g_Size; i++)
 	{
-		cout << g_Arr[i] << endl;
+		cout << g_Arr[i] << "     ";
 	}
 }
 
 void DeleteData()
 {
-
+	if (g_Arr)
+	{
+		delete[]g_Arr;
+		g_Arr = NULL;
+	}
 }
-
-
 
 void InsertSort()
 {
 	InitData();
 	printdata();
-	int j = -1;;
-	for (int i=1;i<10;i++)
+	int i, j;
+	int ntemp;
+	for (i = 1; i < g_Size; i++ )
 	{
-		int ntemp = g_Arr[i];
-		for (j=i;j>0 && g_Arr[j-1]>ntemp;j--)
-			g_Arr[j] = g_Arr[j-1];
+		ntemp = g_Arr[i];
+		for (j = i; j > 0 && g_Arr[j - 1] > ntemp; j--)
+			g_Arr[j] = g_Arr[j - 1];
 		g_Arr[j] = ntemp;
 	}
+
+	printdata();
+	DeleteData();
+}
+
+void ShellSort()
+{
+	InitData();
+	printdata();
+	int nIncrement,i,j;
+	int ntemp;
+	for (nIncrement = g_Size / 2;nIncrement > 0;nIncrement /= 2)
+	{
+		for (i = nIncrement;i < g_Size; i++)
+		{
+			ntemp = g_Arr[i];
+			for (j = i;j - nIncrement >= 0;j-=nIncrement)
+			{
+				if (g_Arr[j - nIncrement] > ntemp)
+				{
+					g_Arr[j] = g_Arr[j - nIncrement];
+				}
+				else
+					break;
+			}
+			g_Arr[j] = ntemp;
+		}
+	}
+
+	printdata();
+	DeleteData();
+}
+
+void Swap(int &num1, int &num2)
+{
+	num1 = num1 ^ num2;
+	num2 = num1 ^ num2;
+	num1 = num1 ^ num2;
+}
+
+void PercDown(int nIndex, int nSum)
+{
+	int nChild;
+	int nTemp;
+	int i;
+	nTemp = g_Arr[nIndex];
+	for (i = nIndex;LEFTCHILD(i) < nSum; i = nChild)
+	{
+		nChild = LEFTCHILD(i);
+		if (LEFTCHILD(i) + 1 < nSum && g_Arr[LEFTCHILD(i) + 1] > g_Arr[LEFTCHILD(i)])//区最大的孩子
+		{
+			nChild++;
+		}
+		if (nTemp < g_Arr[nChild] )
+		{
+			g_Arr[i] = g_Arr[nChild];
+		}
+		else
+		{
+			break;
+		}
+	}
+	g_Arr[i] = nTemp;
+}
+
+void HeapSort()
+{
+	InitData();
+	printdata();
+	for (int i = g_Size / 2;i >= 0;i--)
+	{
+		PercDown(i,g_Size);
+	}
+	printdata();
+	for (int i = g_Size -1;i > 0;i--)
+	{
+		Swap(g_Arr[0], g_Arr[i]);
+		PercDown(0,i);
+	}
+	printdata();
+}
+
+void Merge(int *pArray , int *ptempArray ,int left,int mid,int right)
+{
+	int temp = left;
+	int size = right - left + 1;
+	int leftend = mid - 1;
+	while (left <= leftend && mid <= right)
+	{
+		if (pArray[left] <= pArray[mid])
+		{
+			ptempArray[temp++] = pArray[left++];
+		}
+		else
+		{
+			ptempArray[temp++] = pArray[mid++];
+		}
+	}
+	while (left <= leftend)
+	{
+		ptempArray[temp++] = pArray[left++];
+	}
+	while (mid <= right)
+	{
+		ptempArray[temp++] = pArray[mid++];
+	}
+	for (int i = 0;i < size; i++,right--)
+	{
+		pArray[right] = ptempArray[right];
+	}
+}
+
+
+void MSort(int *pArray, int *ptempArray, int left ,int right)
+{
+	int mid = (left + right) / 2;
+	if (left < right)
+	{
+		MSort(pArray, ptempArray, left, mid);
+		MSort(pArray, ptempArray, mid + 1, right);
+		Merge(pArray, ptempArray, left, mid + 1, right);
+	}
+}
+
+void MergeSort()
+{
+	InitData(20);
+	printdata();
+
+	MSort(g_Arr, g_tempArr, 0, g_Size - 1);
+
 	printdata();
 }
 
@@ -113,3 +251,4 @@ ostream &operator<<(ostream& out, const MyString &str)
 	out << str.m_buf;
 	return out;
 }
+
