@@ -19,12 +19,16 @@ void Excersice_1()
 	}
 	linklist.PrintList();
 
+	
+	cout <<endl<< linklist.GetSize() << endl;
 
-	cout << linklist.GetSize() << endl;
-	linklist.DeleteList();
-	cout << linklist.GetSize() << endl;
 
 	cout << "Excersice_1  end------------" << endl;
+
+	cout << "Excersice_1  Reverse begin------------" << endl;
+	linklist.ReverseLink();
+	linklist.PrintList();
+	cout << "Excersice_1  Reverse end------------" << endl;
 }
 
 void Excersice_2()

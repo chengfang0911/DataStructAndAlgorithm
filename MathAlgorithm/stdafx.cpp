@@ -161,40 +161,34 @@ void HeapSort()
 
 void Merge(int *pArray , int *ptempArray ,int left,int mid,int right)
 {
-	int temp = left;
-	int size = right - left + 1;
 	int leftend = mid - 1;
-	while (left <= leftend && mid <= right)
+	int i = left;
+	int tmp = left;
+	int j = mid;
+	while (i < leftend && j < right)
 	{
-		if (pArray[left] <= pArray[mid])
-		{
-			ptempArray[temp++] = pArray[left++];
-		}
+		if (pArray[i] <= pArray[j])
+			ptempArray[tmp++] = pArray[i++];
 		else
-		{
-			ptempArray[temp++] = pArray[mid++];
-		}
+			ptempArray[tmp++] = pArray[j++];
 	}
-	while (left <= leftend)
+	while (i <= leftend)
 	{
-		ptempArray[temp++] = pArray[left++];
+		ptempArray[tmp++] = pArray[i++];
 	}
-	while (mid <= right)
-	{
-		ptempArray[temp++] = pArray[mid++];
-	}
-	for (int i = 0;i < size; i++,right--)
-	{
+	while(j <= right)
+		ptempArray[tmp++] = pArray[j++];
+
+	for (int z = 0; z < right-left + 1; z++, right--)
 		pArray[right] = ptempArray[right];
-	}
 }
 
 
 void MSort(int *pArray, int *ptempArray, int left ,int right)
 {
-	int mid = (left + right) / 2;
 	if (left < right)
 	{
+		int mid = (left + right) / 2;
 		MSort(pArray, ptempArray, left, mid);
 		MSort(pArray, ptempArray, mid + 1, right);
 		Merge(pArray, ptempArray, left, mid + 1, right);

@@ -163,7 +163,7 @@ public:
 		Node<T> *pTmp = m_pBegin->pNext;
 		while (pTmp != NULL)
 		{
-			cout <<" "<< pTmp->data;
+			cout <<"  "<< pTmp->data;
 			pTmp = pTmp->pNext;
 		}
 
@@ -195,6 +195,33 @@ public:
 		pPrevious->pNext = pBack;
 		pBack->pNext = pBefore;
 		pBefore->pNext = pTmp;
+	}
+
+	void ReverseLink()
+	{
+		Node<T> *head = m_pBegin;
+		Node<T> *pre = NULL;
+		Node<T> *cur = NULL;
+		Node<T> *last = NULL;
+		if (!head->pNext)
+			return;
+		pre = head->pNext;
+		head->pNext = NULL;
+		if (!pre->pNext)
+			return;
+		cur = pre->pNext;
+		pre->pNext = NULL;
+		while (cur->pNext)
+		{
+			last = cur->pNext;
+			cur->pNext = pre;
+			pre = cur;
+			cur = last;
+			if (last->pNext)
+				last = last->pNext;
+		}
+		cur->pNext = pre;
+		head->pNext = cur;
 	}
 
 private:
